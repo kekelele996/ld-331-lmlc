@@ -16,7 +16,7 @@
 - **科室与岗位**：维护科室、岗位编制与技能标签；内置内科、主治医师和演示人员。
 - **规则排班**：配置连续工作天数、周末轮循、节假日优先、夜班限制；一键生成指定日期范围的班表。
 - **可视化班表**：按科室与日期筛选，白班/中班/夜班/休息采用不同颜色；下拉调整即为手动微调。
-- **调班与替班**：员工提交双方班次的调换申请，主管审批时在一个数据库事务中交换排班，记录申请人、审批人与状态。
+- **调班与替班**：员工提交双方班次的调换申请后先由替班人确认，同意后才进入主管审批；替班人拒绝则申请结束；主管在双方同意后审批通过时，在一个数据库事务中交换排班，并防止重复操作导致班次被反复交换。改造前已提交的历史申请仍由主管直接审批。
 - **工时统计与导出**：按月汇总人员出勤、各类班次和夜班加班时长，可从前端下载统计表。
 - **特殊日期**：维护法定节假日、特殊工作日和计班系数；在规则管理页查看。
 - **安全与可观测性**：JWT 登录、管理员/主管/员工角色权限、统一 JSON 响应、请求 ID 结构化日志、健康检查。
@@ -125,7 +125,7 @@ Vite 开发服务器使用 `18931`，会将 `/api` 代理到本地 `19931` 后�
 - `GET/POST /api/v1/departments`、`GET/POST /api/v1/positions`、`GET/POST /api/v1/staff`：组织人员管理。
 - `GET /api/v1/schedules`、`POST /api/v1/schedules/generate`、`PUT /api/v1/schedules/:id`：查询、生成和调整排班。
 - `GET/PUT /api/v1/schedule-rules`、`GET/POST /api/v1/holidays`：排班规则与特殊日期。
-- `GET/POST /api/v1/shift-requests`、`PUT /api/v1/shift-requests/:id/review`：调班申请与审批。
+- `GET/POST /api/v1/shift-requests`、`PUT /api/v1/shift-requests/:id/respond`、`PUT /api/v1/shift-requests/:id/review`：调班申请、替班人确认与主管审批（历史 pending 申请直接由主管处理）。
 - `GET /api/v1/schedules/statistics`：月度出勤和工时统计。
 
 ## License

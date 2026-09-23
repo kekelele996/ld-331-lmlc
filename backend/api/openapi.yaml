@@ -5,5 +5,7 @@ paths:
   /api/v1/auth/login: {post: {summary: 登录}}
   /api/v1/schedules: {get: {summary: 查询可视化排班表}}
   /api/v1/schedules/generate: {post: {summary: 自动生成排班}}
-  /api/v1/shift-requests: {get: {summary: 查询调班申请}, post: {summary: 提交调班申请}}
+  /api/v1/shift-requests: {get: {summary: 查询调班申请}, post: {summary: 提交调班申请（先等替班人确认）}}
+  /api/v1/shift-requests/{id}/respond: {put: {summary: 替班人确认/拒绝换班申请}}
+  /api/v1/shift-requests/{id}/review: {put: {summary: 主管审批（历史 pending 申请可直接审批）}}
   /api/v1/schedules/statistics: {get: {summary: 月度工时统计}}
