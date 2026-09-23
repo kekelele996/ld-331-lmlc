@@ -10,3 +10,6 @@ type ReviewRequest struct {
 	Approved bool   `json:"approved"`
 	Comment  string `json:"comment"`
 }
+type SubstituteConfirmRequest struct {
+	Accepted bool `json:"accepted"`
+}

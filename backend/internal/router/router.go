@@ -45,6 +45,7 @@ func registerAPI(api *gin.RouterGroup, h Handlers, secret string) {
 	protected.GET("/schedules/export", h.Schedules.Export)
 	protected.GET("/shift-requests", h.Requests.List)
 	protected.POST("/shift-requests", h.Requests.Create)
+	protected.PUT("/shift-requests/:id/confirm", h.Requests.Confirm)
 	protected.GET("/holidays", h.Holidays.List)
 	admin := protected.Group("")
 	admin.Use(middleware.Roles("admin", "supervisor"))

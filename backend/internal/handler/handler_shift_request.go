@@ -35,6 +35,22 @@ func (h *ShiftRequestHandler) Create(c *gin.Context) {
 	}
 	response.OK(c, "申请已提交")
 }
+func (h *ShiftRequestHandler) Confirm(c *gin.Context) {
+	id, ok := parseID(c)
+	if !ok {
+		return
+	}
+	var q dto.SubstituteConfirmRequest
+	if e := c.ShouldBindJSON(&q); e != nil {
+		response.Error(c, 400, constants.CodeBadRequest, "确认参数错误")
+		return
+	}
+	if e := h.s.Confirm(id, middleware.StaffID(c), q.Accepted); e != nil {
+		handleError(c, e)
+		return
+	}
+	response.OK(c, "确认完成")
+}
 func (h *ShiftRequestHandler) Review(c *gin.Context) {
 	id, ok := parseID(c)
 	if !ok {
